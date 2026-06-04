@@ -101,6 +101,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 32px;
+      text-align: center;
       display: none;
       animation: fadeUp 0.4s ease;
     }
@@ -122,6 +123,7 @@
     .temp-row {
       display: flex;
       align-items: flex-end;
+      justify-content: center;
       gap: 16px;
       margin: 16px 0;
     }
@@ -146,8 +148,18 @@
     .description {
       color: var(--muted);
       font-size: 1rem;
+      text-align: center;
       text-transform: capitalize;
-      margin-bottom: 28px;
+      margin-bottom: 8px;
+    }
+
+    .local-date {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-align: center;
+      text-transform: capitalize;
+      margin-bottom: 18px;
     }
 
     /* Grid de detalhes */

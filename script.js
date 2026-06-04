@@ -1,6 +1,4 @@
-// =====================================================
-    // 🔑 COLOQUE SUA API KEY AQUI (openweathermap.org)
-    // =====================================================
+    // Chave de API do OpenWeatherMap
     const API_KEY = '1064fb42234e2f83329960b8888b9998';
 
     // Mapeia código de clima para emoji
@@ -26,12 +24,37 @@
       });
     }
 
+    function capitalizarPrimeiraLetra(texto) {
+      return texto.charAt(0).toUpperCase() + texto.slice(1);
+    }
+
+    function formatarDataLocal(timezoneOffset) {
+      const dataNaCidade = new Date(Date.now() + timezoneOffset * 1000);
+      const opcoesDeData = { timeZone: 'UTC' };
+
+      const dia = dataNaCidade.toLocaleDateString('pt-BR', {
+        ...opcoesDeData,
+        day: 'numeric'
+      });
+      const mes = dataNaCidade.toLocaleDateString('pt-BR', {
+        ...opcoesDeData,
+        month: 'long'
+      });
+      const diaDaSemana = dataNaCidade.toLocaleDateString('pt-BR', {
+        ...opcoesDeData,
+        weekday: 'long'
+      });
+
+      return `${dia} de ${mes}, ${capitalizarPrimeiraLetra(diaDaSemana)}`;
+    }
+
     async function buscarClima() {
       const cidade = document.getElementById('input').value.trim();
 
       // Esconde tudo
       document.getElementById('card').classList.remove('visible');
       document.getElementById('error').classList.remove('visible');
+      document.getElementById('local-date').textContent = '';
 
       if (!cidade) {
         mostrarErro('Digite o nome de uma cidade.');
@@ -66,6 +89,7 @@
         document.getElementById('clouds').textContent = `${data.clouds?.all ?? 0}%`;
         document.getElementById('sunrise').textContent = formatarHora(data.sys.sunrise, data.timezone);
         document.getElementById('sunset').textContent = formatarHora(data.sys.sunset, data.timezone);
+        document.getElementById('local-date').textContent = formatarDataLocal(data.timezone);
 
         document.getElementById('card').classList.add('visible');
 
