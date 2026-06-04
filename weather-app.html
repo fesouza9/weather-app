@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clima</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>Clima agora</h1>
+
+    <div class="search-row">
+      <input id="input" type="text" placeholder="Digite uma cidade... ex: São Paulo" />
+      <button onclick="buscarClima()" id="buscar">Buscar</button>
+    </div>
+
+    <div class="error" id="error"></div>
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>Buscando dados...</p>
+    </div>
+
+    <div class="card" id="card">
+      <div class="city-name" id="city"></div>
+      <div class="temp-row">
+        <div class="temp" id="temp"></div>
+        <div class="weather-icon" id="icon"></div>
+      </div>
+      <div class="description" id="desc"></div>
+      <div class="details">
+        <div class="detail-item">
+          <div class="detail-label">Sensação</div>
+          <div class="detail-value" id="feels"></div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Umidade</div>
+          <div class="detail-value" id="humidity"></div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Vento</div>
+          <div class="detail-value" id="wind"></div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Visibilidade</div>
+          <div class="detail-value" id="visibility"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
