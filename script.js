@@ -16,6 +16,16 @@
       return '🌡️';
     }
 
+    function formatarHora(timestamp, timezoneOffset) {
+      const horarioNaCidade = new Date((timestamp + timezoneOffset) * 1000);
+
+      return horarioNaCidade.toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'UTC'
+      });
+    }
+
     async function buscarClima() {
       const cidade = document.getElementById('input').value.trim();
 
@@ -50,6 +60,12 @@
         document.getElementById('humidity').textContent = `${data.main.humidity}%`;
         document.getElementById('wind').textContent = `${Math.round(data.wind.speed * 3.6)} km/h`;
         document.getElementById('visibility').textContent = `${(data.visibility / 1000).toFixed(1)} km`;
+        document.getElementById('temp-min').textContent = `${Math.round(data.main.temp_min)}\u00B0C`;
+        document.getElementById('temp-max').textContent = `${Math.round(data.main.temp_max)}\u00B0C`;
+        document.getElementById('pressure').textContent = `${data.main.pressure} hPa`;
+        document.getElementById('clouds').textContent = `${data.clouds?.all ?? 0}%`;
+        document.getElementById('sunrise').textContent = formatarHora(data.sys.sunrise, data.timezone);
+        document.getElementById('sunset').textContent = formatarHora(data.sys.sunset, data.timezone);
 
         document.getElementById('card').classList.add('visible');
 
