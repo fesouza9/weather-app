@@ -8,21 +8,35 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+  <header class="header" id="header">
+    <section class="logo">
+      <img src="assets/images/logo.webp" alt="Weather App Logo" width="50" height="50"/>
+      <h1>APP de Clima</h1>
+    </section>
+
+    <section class="config">
+      <label for="units" class="unidades">Unidades:</label>
+      <select id="units" name="Units" aria-label="Config" onchange="buscarClima()">
+        <option value="metric">°C, m/s</option>
+        <option value="imperial">°F, mph</option>
+      </select>
+    </section>
+  </header>
+
   <main class="container">
-    <h1>APP de Clima</h1>
 
-    <h2>Como está o dia de hoje?</h2>
+    <h1>Como está o dia de hoje?</h1>
 
-    <div class="search-row">
+    <section class="search-row">
       <input id="input" type="text" placeholder="Digite uma cidade... ex: São Paulo" />
       <button onclick="buscarClima()" id="buscar">Buscar</button>
-    </div>
+    </section>
 
-    <div class="error" id="error"></div>
-    <div class="loading" id="loading">
+    <aside class="error" id="error"></aside>
+    <aside class="loading" id="loading">
       <div class="spinner"></div>
       <p>Buscando dados...</p>
-    </div>
+    </aside>
 
     <section class="card weather-card" id="card">
       <aside class="weather-summary">
@@ -33,14 +47,16 @@
           </div>
           
           <div class="temp-row">
-            <div class="temp" id="temp"></div>
-            <div class="weather-icon" id="icon"></div>
             <div class="description" id="desc"></div>
+            <div class="weather-icon" id="icon">
+              <img id="weather-icon" src="assets/images/icon-sunny.webp" alt="Weather Icon" />
+            </div>
+            <div class="temp" id="temp"></div>
           </div>
         </div>
       </aside>
 
-      <div class="details">
+      <aside class="details">
         <div class="detail-item">
           <div class="detail-label">Sensação</div>
           <div class="detail-value" id="feels"></div>
@@ -81,7 +97,7 @@
           <div class="detail-label">P&ocirc;r do sol</div>
           <div class="detail-value" id="sunset"></div>
         </div>
-      </div>
+      </aside>
     </section>
 
     <section class="forecast-section" id="forecast-card">
@@ -95,6 +111,7 @@
       <div class="hourly-list" id="hourly-list"></div>
     </section>
   </main>
+
   <script src="script.js"></script>
 </body>
 </html>

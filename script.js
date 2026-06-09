@@ -3,7 +3,7 @@
 
     // Mapeia código de clima para emoji
     function getIcon(id) {
-      if (id >= 200 && id < 300) return '⛈️';
+      if (id >= 200 && id < 300) return '⛈️'; 
       if (id >= 300 && id < 400) return '🌦️';
       if (id >= 500 && id < 600) return '🌧️';
       if (id >= 600 && id < 700) return '❄️';

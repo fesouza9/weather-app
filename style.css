@@ -17,7 +17,7 @@
       font-family: 'DM Sans', sans-serif;
       min-height: 100vh;
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
       padding: 32px 24px;
       overflow-x: hidden;
@@ -35,14 +35,26 @@
       z-index: 0;
     }
 
-    .container {
+    .header {
       width: 100%;
       max-width: 760px;
-      position: relative;
-      z-index: 1;
+      margin: auto;
+      top: 10px;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      z-index: 2;
     }
 
-    h1 {
+    .logo {
+      flex: 1;
+      display: flex;
+      padding: 8px 12px;
+      gap: 10px;
+    } 
+
+    .header h1 {
       font-family: 'Syne', sans-serif;
       font-size: 2rem;
       font-weight: 800;
@@ -52,15 +64,62 @@
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+    
     }
 
-    h2 {
+    .config {
+      display: flex;
+      padding: 8px 12px;
+      gap: 10px;
+    }
+
+    .unidades {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-left: 12px;
+      position:absolute;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+      font-size: 1rem;
+      
+    }
+
+    .config select {
+      flex-shrink: 0;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px 12px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      cursor: pointer;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .container h1 {
       font-family: 'Syne', sans-serif;
-      font-size: larger;
+      font-size: 2rem;
+      font-weight: 800;
       letter-spacing: -0.03em;
-      font-weight: bolder;
       text-align: center;
       margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     /* Search */
@@ -117,6 +176,16 @@
     }
     .card.visible { display: block; }
 
+    .weather-summary {
+      display: grid;
+      gap: 4px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
     .weather-card {
       text-align: left;
     }
@@ -126,16 +195,10 @@
       grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
       gap: 24px;
-      margin-bottom: 28px;
     }
 
     .weather-copy {
       min-width: 0;
-    }
-
-    .weather-summary {
-      display: grid;
-      gap: 4px;
     }
 
     @keyframes fadeUp {
@@ -171,6 +234,8 @@
     }
 
     .weather-icon {
+      background-size: contain;
+      background-repeat: no-repeat;
       font-size: 3.5rem;
       line-height: 1;
       margin-bottom: 6px;
@@ -180,6 +245,7 @@
       color: var(--muted);
       font-size: 1rem;
       text-align: left;
+      align-self: center;
       text-transform: capitalize;
       margin-bottom: 0;
     }
@@ -355,6 +421,13 @@
         /* No celular, o conteudo comeca no topo para aproveitar melhor a tela. */
         align-items: flex-start;
         padding: 20px 16px;
+      }
+
+      header {
+        /* Centraliza o header e deixa ele com espaçamento interno para nao encostar nas bordas. */
+        width: 100%;
+        gap: 12px;
+        margin-bottom: 20px;
       }
 
       h1 {
