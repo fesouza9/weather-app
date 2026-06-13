@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <header class="header" id="header">
+  <header class="site-header" id="header">
     <section class="logo">
       <img src="assets/images/logo.webp" alt="Weather App Logo" width="50" height="50"/>
       <h1>APP de Clima</h1>
@@ -16,16 +16,16 @@
 
     <section class="config">
       <label for="units" class="unidades">Unidades:</label>
-      <select id="units" name="Units" aria-label="Config" onchange="buscarClima()">
-        <option value="metric">°C, m/s</option>
+      <select id="units" aria-label="Config" onchange="buscarClima()">
+        <option value="metric">°C, km/h</option>
         <option value="imperial">°F, mph</option>
       </select>
     </section>
   </header>
 
   <main class="container">
-
-    <h1>Como está o dia de hoje?</h1>
+    
+    <h1>Como está o céu de hoje?</h1>
 
     <section class="search-row">
       <input id="input" type="text" placeholder="Digite uma cidade... ex: São Paulo" />
@@ -37,80 +37,126 @@
       <div class="spinner"></div>
       <p>Buscando dados...</p>
     </aside>
-
-    <section class="card weather-card" id="card">
-      <aside class="weather-summary">
-        <div class="weather-overview">
-          <div class="weather-copy">
-            <div class="city-name" id="city"></div>
-            <div class="local-date" id="local-date"></div>
-          </div>
-          
-          <div class="temp-row">
-            <div class="description" id="desc"></div>
-            <div class="weather-icon" id="icon">
-              <img id="weather-icon" src="assets/images/icon-sunny.webp" alt="Weather Icon" />
+    <section class="weather-grid" id="wth-grid">
+      <section class="card weather-card" id="card">
+        <aside class="weather-summary">
+          <div class="weather-overview">
+            <div class="weather-copy">
+              <div class="city-name" id="city"></div>
+              <div class="local-date" id="local-date"></div>
             </div>
-            <div class="temp" id="temp"></div>
+          
+            <div class="temp-row">
+              <div class="description" id="desc"></div>
+              <div class="weather-icon" id="icon">
+                <img id="weather-icon" src="assets/images/icon-sunny.webp" alt="Weather Icon" width="50" height="50"/>
+              </div>
+              <div class="temp" id="temp"></div>
+            </div>
           </div>
-        </div>
+        </aside>
+
+        <aside class="details">
+          <div class="detail-item">
+            <div class="detail-label">Sensação</div>
+            <div class="detail-value" id="feels"></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Umidade</div>
+            <div class="detail-value" id="humidity"></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Vento</div>
+            <div class="detail-value" id="wind"></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Visibilidade</div>
+            <div class="detail-value" id="visibility"></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">M&iacute;nima</div>
+            <div class="detail-value" id="temp-min"></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">M&aacute;xima</div>
+            <div class="detail-value" id="temp-max"></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Press&atilde;o</div>
+            <div class="detail-value" id="pressure"></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Nuvens</div>
+            <div class="detail-value" id="clouds"></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Nascer do sol</div>
+            <div class="detail-value" id="sunrise"></div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">P&ocirc;r do sol</div>
+            <div class="detail-value" id="sunset"></div>
+          </div>
+        </aside>
+      </section>
+      <aside class="side-container">
+        <section class="forecast-section" id="weekly-forecast-card">
+          <article class="forecast-header">
+            <div class="section-header">
+              <p class="section-kicker">Previsão do Dia</p>
+              <span class="section-title"></span>
+            </div>
+          </article>
+  
+          <article class="hourly-forecast">
+            <ul class="forecast-list" id="forecast-list">
+              <li class="forecast-hour">
+                <div class="forecast-time">12:00</div>
+                <div class="forecast-icon">
+                  <img src="assets/images/icon-sunny.webp" alt="Sunny Icon" width="30" height="30"/>
+                </div>
+                <div class="forecast-temp">25°C</div>
+              </li>
+            </ul>
+
+            <ul class="forecast-list" id="forecast-list">
+              <li class="forecast-hour">
+                <div class="forecast-time">13:00</div>
+                <div class="forecast-icon">
+                  <img src="assets/images/icon-sunny.webp" alt="Sunny Icon" width="30" height="30"/>
+                </div>
+                <div class="forecast-temp">25°C</div>
+              </li>
+            </ul>
+
+            <ul class="forecast-list" id="forecast-list">
+              <li class="forecast-hour">
+                <div class="forecast-time">14:00</div>
+                <div class="forecast-icon">
+                  <img src="assets/images/icon-sunny.webp" alt="Sunny Icon" width="30" height="30"/>
+                </div>
+                <div class="forecast-temp">25°C</div>
+              </li>
+            </ul>
+
+             <ul class="forecast-list" id="forecast-list">
+              <li class="forecast-hour">
+                <div class="forecast-time">15:00</div>
+                <div class="forecast-icon">
+                  <img src="assets/images/icon-sunny.webp" alt="Sunny Icon" width="30" height="30"/>
+                </div>
+                <div class="forecast-temp">25°C</div>
+              </li>
+            </ul>
+
+          </article>
+        </section>
       </aside>
-
-      <aside class="details">
-        <div class="detail-item">
-          <div class="detail-label">Sensação</div>
-          <div class="detail-value" id="feels"></div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">Umidade</div>
-          <div class="detail-value" id="humidity"></div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">Vento</div>
-          <div class="detail-value" id="wind"></div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">Visibilidade</div>
-          <div class="detail-value" id="visibility"></div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">M&iacute;nima</div>
-          <div class="detail-value" id="temp-min"></div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">M&aacute;xima</div>
-          <div class="detail-value" id="temp-max"></div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">Press&atilde;o</div>
-          <div class="detail-value" id="pressure"></div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">Nuvens</div>
-          <div class="detail-value" id="clouds"></div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">Nascer do sol</div>
-          <div class="detail-value" id="sunrise"></div>
-        </div>
-        <div class="detail-item">
-          <div class="detail-label">P&ocirc;r do sol</div>
-          <div class="detail-value" id="sunset"></div>
-        </div>
-      </aside>
-    </section>
-
-    <section class="forecast-section" id="forecast-card">
-      <div class="section-header">
-        <div>
-          <p class="section-kicker">Hoje</p>
-          <h2>Previs&atilde;o por hor&aacute;rio</h2>
-        </div>
-      </div>
-
-      <div class="hourly-list" id="hourly-list"></div>
+      
     </section>
   </main>
+
+
 
   <script src="script.js"></script>
 </body>

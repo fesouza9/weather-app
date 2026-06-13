@@ -8,8 +8,8 @@
       if (id >= 500 && id < 600) return '🌧️';
       if (id >= 600 && id < 700) return '❄️';
       if (id >= 700 && id < 800) return '🌫️';
-      if (id === 800)             return '☀️';
-      if (id === 801)             return '🌤️';
+      if (id === 800) return '☀️';
+      if (id === 801) return '🌤️';
       if (id >= 802 && id < 900) return '☁️';
       return '🌡️';
     }
@@ -53,6 +53,7 @@
 
       // Esconde tudo
       document.getElementById('card').classList.remove('visible');
+      document.getElementById('weekly-forecast-card').classList.remove('visible');
       document.getElementById('error').classList.remove('visible');
       document.getElementById('local-date').textContent = '';
 
@@ -76,7 +77,7 @@
 
         // Preenche os dados
         document.getElementById('city').textContent = `${data.name}, ${data.sys.country}`;
-        document.getElementById('temp').textContent = `${Math.round(data.main.temp)}°`;
+        document.getElementById('temp').textContent = `${Math.round(data.main.temp)}°C`;
         document.getElementById('icon').textContent = getIcon(data.weather[0].id);
         document.getElementById('desc').textContent = data.weather[0].description;
         document.getElementById('feels').textContent = `${Math.round(data.main.feels_like)}°C`;
@@ -92,6 +93,7 @@
         document.getElementById('local-date').textContent = formatarDataLocal(data.timezone);
 
         document.getElementById('card').classList.add('visible');
+        document.getElementById('weekly-forecast-card').classList.add('visible');
 
       } catch (err) {
         mostrarErro('Erro de conexão. Verifique sua internet.');
