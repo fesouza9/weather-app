@@ -39,13 +39,14 @@
 
     .site-header {
       width: 100%;
-      max-width: 760px;
+      max-width: 1000px;
       margin: auto;
       top: 10px;
       position: absolute;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 20px;
+      gap: 25px;
       z-index: 2;
     }
 
@@ -57,13 +58,13 @@
     } 
 
     .site-header h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: 2rem;
-      font-weight: 800;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.1rem;
+      font-weight: bold;
       letter-spacing: -0.03em;
       text-align: center;
       margin-bottom: 24px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      background: linear-gradient(135deg, rgb(238, 32, 32), rgb(243, 223, 168), var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     
@@ -122,11 +123,10 @@
     .container h1 {
       font-family: 'Syne', sans-serif;
       font-size: 2rem;
-      font-weight: 800;
       letter-spacing: -0.03em;
       text-align: center;
       margin-bottom: 24px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      background: linear-gradient(135deg, var(--accent), rgb(186, 197, 245), var(--accent2));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -154,8 +154,8 @@
       outline: none;
       transition: border-color 0.2s;
     }
-    input::placeholder { color: var(--muted); }
-    input:focus { border-color: var(--accent); }
+    input::placeholder { color: var(--muted);}
+    input:focus { border-color: var(--accent);}
 
     button {
       /* Mantem o botao com um tamanho legivel quando input e botao ficam lado a lado. */
@@ -177,7 +177,6 @@
 
     /* Card principal */
     .card {
-      border: 1px solid var(--border);
       border-radius: var(--radius);
       text-align: center;
       display: none;
@@ -232,11 +231,11 @@
 
     .temp {
       font-family: Arial, Helvetica, sans-serif;
-      font-size: 4rem;
+      font-size: 3.5rem;
       font-weight: 800;
       line-height: 1;
       letter-spacing: -0.04em;
-      background: linear-gradient(135deg, #fff, var(--accent));
+      background: linear-gradient(135deg, #fff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -403,6 +402,8 @@
     min-width: 0px;
     flex-shrink: 0;
   }
+
+  
 
     /*
       @media aplica estilos apenas quando uma condicao for verdadeira.

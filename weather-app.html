@@ -10,8 +10,8 @@
 <body>
   <header class="site-header" id="header">
     <section class="logo">
-      <img src="assets/images/logo.webp" alt="Weather App Logo" width="50" height="50"/>
-      <h1>APP de Clima</h1>
+      <img src="assets/logo/logo.png" alt="Weather App Logo" width="60" height="60"/>
+      <h1>Weather Now</h1>
     </section>
 
     <section class="config">
@@ -25,7 +25,7 @@
 
   <main class="container">
     
-    <h1>Como está o céu de hoje?</h1>
+    <h1>Como está o céu hoje?</h1>
 
     <section class="search-row">
       <input id="input" type="text" placeholder="Digite uma cidade... ex: São Paulo" />
@@ -37,6 +37,8 @@
       <div class="spinner"></div>
       <p>Buscando dados...</p>
     </aside>
+
+
     <section class="weather-grid" id="wth-grid">
       <section class="card weather-card" id="card">
         <aside class="weather-summary">
@@ -99,11 +101,13 @@
           </div>
         </aside>
       </section>
+
+      <!-- Previsão pelas próximas 20 horas -->
       <aside class="side-container">
         <section class="forecast-section" id="weekly-forecast-card">
           <article class="forecast-header">
             <div class="section-header">
-              <p class="section-kicker">Previsão do Dia</p>
+              <p class="section-kicker">pr&oacute;ximas 20 horas</p>
               <span class="section-title"></span>
             </div>
           </article>
@@ -115,7 +119,7 @@
                 <div class="forecast-icon">
                   <img src="assets/images/icon-sunny.webp" alt="Sunny Icon" width="30" height="30"/>
                 </div>
-                <div class="forecast-temp">25°C</div>
+                <div class="forecast-temp">25°</div>
               </li>
             </ul>
 
@@ -125,7 +129,7 @@
                 <div class="forecast-icon">
                   <img src="assets/images/icon-sunny.webp" alt="Sunny Icon" width="30" height="30"/>
                 </div>
-                <div class="forecast-temp">25°C</div>
+                <div class="forecast-temp">25°</div>
               </li>
             </ul>
 
@@ -135,7 +139,7 @@
                 <div class="forecast-icon">
                   <img src="assets/images/icon-sunny.webp" alt="Sunny Icon" width="30" height="30"/>
                 </div>
-                <div class="forecast-temp">25°C</div>
+                <div class="forecast-temp">25°</div>
               </li>
             </ul>
 
@@ -145,13 +149,27 @@
                 <div class="forecast-icon">
                   <img src="assets/images/icon-sunny.webp" alt="Sunny Icon" width="30" height="30"/>
                 </div>
-                <div class="forecast-temp">25°C</div>
+                <div class="forecast-temp">25°</div>
               </li>
             </ul>
 
           </article>
         </section>
       </aside>
+
+      <!-- Previsão do mesmo horário em cada dia da semana -->
+      <article class="weekly-forecast-card" id="weekly-forecast-card">
+        <p class="section-kicker">pr&oacute;ximos dias</p>
+        <ul class="forecast-list" id="forecast-list">
+          <li class="forecast-day">
+            <section class="forecast-date">Segunda-feira</section>
+            <div class="forecast-icon">
+              <img src="assets/images/icon-sunny.webp" alt="Sunny Icon" width="30" height="30"/>
+            </div>
+            <div class="forecast-temp">25°/14°</div>
+          </li>
+        </ul>
+      </article>
       
     </section>
   </main>
