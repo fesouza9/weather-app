@@ -334,9 +334,10 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    /* Previsão pelas próximas 23 horas */
     .side-container {
       min-width: 0;
-      max-width: fit-content;
+      max-width: 400px;
       display: flex;
       flex-direction: column;
     }
@@ -391,7 +392,7 @@
   }
 
   .forecast-hour {
-    width: 200px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -403,8 +404,52 @@
     flex-shrink: 0;
   }
 
-  
+  /* Previsão do mesmo horário em cada dia da semana */
+  .weekly-forecast-section {
+    min-width: 0;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 8px;
+  }
 
+  .weekly-forecast-section::-webkit-scrollbar {
+    display: none;
+  }
+
+  .weekly-forecast {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .weekly-forecast.visible { display: block;}
+
+  .hourly-list {
+    width: 100%;
+    display: flex;
+    margin-bottom: 15px;
+    list-style: none;
+    gap: 20px;
+  }
+
+  .forecast-day {
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    text-align: center;
+    padding: 12px 16px;
+  }
+
+  .forecast-date {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  
     /*
       @media aplica estilos apenas quando uma condicao for verdadeira.
       Aqui, estes estilos so entram quando a tela tem 520px de largura ou menos,

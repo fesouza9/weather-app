@@ -102,6 +102,7 @@ async function buscarClima() {
 
   // Esconde resultados anteriores antes de buscar novos dados.
   document.getElementById('card').classList.remove('visible');
+  document.getElementById('hourly-forecast-section')?.classList.remove('visible');
   document.getElementById('weekly-forecast-card')?.classList.remove('visible');
   document.getElementById('error').classList.remove('visible');
   document.getElementById('local-date').textContent = '';
@@ -112,6 +113,7 @@ async function buscarClima() {
   }
 
   document.getElementById('loading').classList.add('visible');
+  document.getElementById('input').blur(); // Remove o foco do input para esconder o teclado em dispositivos móveis.
 
   try {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(cidade)}&appid=${API_KEY}&units=${unidade}&lang=pt_br`;
@@ -149,9 +151,11 @@ async function buscarClima() {
     document.getElementById('local-date').textContent = formatarDataLocal(data.timezone);
 
     document.getElementById('card').classList.add('visible');
+    document.getElementById('hourly-forecast-section')?.classList.add('visible');
     document.getElementById('weekly-forecast-card')?.classList.add('visible');
+    
   } catch (err) {
-    mostrarErro('Erro de conex\u00E3o. Verifique sua internet.');
+    mostrarErro('Erro de conexão. Verifique sua internet.');
   } finally {
     document.getElementById('loading').classList.remove('visible');
   }
