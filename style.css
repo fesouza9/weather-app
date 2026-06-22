@@ -470,7 +470,7 @@ button:active { transform: translateY(0); }
 
 @media (max-width: 420px) {
   .site-header {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .details,
@@ -480,5 +480,11 @@ button:active { transform: translateY(0); }
 
   .temp {
     font-size: 3rem;
+  }
+}
+
+@media (max-width:326px) {
+  .site-header {
+    flex-direction: column;
   }
 }
