@@ -21,6 +21,8 @@
         <option value="metric">&deg;C, km/h</option>
         <option value="imperial">&deg;F, mph</option>
       </select>
+
+      
     </section>
   </header>
 
@@ -49,7 +51,16 @@
 
             <div class="temp-row">
               <div class="description" id="desc"></div>
-              <div class="weather-icon" id="icon"></div>
+
+              <!--
+                Antes este elemento era uma <div> com um emoji escrito dentro.
+                Agora e uma tag <img> de verdade: o atributo "src" comeca vazio
+                e e preenchido pelo JavaScript (em renderizarClimaAtual, dentro
+                de script.js), que coloca ali o caminho da imagem correta
+                (ex: assets/images/chuva.png) dependendo do clima da cidade.
+              -->
+              <img class="weather-icon" id="icon" src="" alt="\u00cdcone do clima" />
+
               <div class="temp" id="temp"></div>
             </div>
           </div>

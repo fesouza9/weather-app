@@ -61,10 +61,10 @@ body::before {
 }
 
 .logo h1 {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.6rem;
+  font-family: Montserrat, sans-serif;
+  font-size: 2rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #fff, var(--accent));
+  background: linear-gradient(135deg, #fff, var(--accent2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -194,6 +194,8 @@ button:active { transform: translateY(0); }
   gap: 22px;
 }
 
+
+
 .weather-copy {
   min-width: 0;
 }
@@ -228,9 +230,13 @@ button:active { transform: translateY(0); }
   color: var(--text);
 }
 
+/* Antes o icone era um emoji (texto), por isso usava font-size e
+   background-image. Agora #icon e uma tag <img> de verdade no HTML,
+   entao controlamos o tamanho com width/height e object-fit. */
 .weather-icon {
-  font-size: 3rem;
-  line-height: 1;
+  width: 90px;
+  height: 90px;
+  object-fit: contain; /* mantem a proporcao da imagem sem distorcer */
 }
 
 .details {
@@ -317,9 +323,12 @@ button:active { transform: translateY(0); }
   text-transform: capitalize;
 }
 
+/* Antes era font-size (pra emoji). Agora .forecast-icon e uma <img>,
+   entao controlamos o tamanho com width/height. */
 .forecast-icon {
-  font-size: 1.6rem;
-  line-height: 1;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 .forecast-temp {

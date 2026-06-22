@@ -2,36 +2,45 @@
 // Observacao: em apps 100% front-end, qualquer chave colocada no JS fica visivel no navegador.
 const API_KEY = '1064fb42234e2f83329960b8888b9998';
 
+// Funcao de atalho: em vez de escrever "document.getElementById('algo')" toda hora,
+// usamos "$('algo')". Faz exatamente a mesma coisa, só economiza digitação.
 const $ = id => document.getElementById(id);
 
-// Emojis usados pelo app.
-// Eles estao escritos com Unicode para evitar bug de codificacao no arquivo.
-// Para adicionar mais emotes:
-// 1. Crie uma nova chave aqui, como hail: '\uXXXX'.
-// 2. Use essa chave dentro de getIcon() ou getForecastIcon().
-// 3. Se precisar, crie uma nova regra usando o codigo da API.
+// Caminhos das IMAGENS usadas pelo app (antes eram emojis, agora sao arquivos .png).
+// Cada chave (thunder, rain, sun, etc.) representa uma condicao de tempo.
+// Para adicionar mais icones:
+// 1. Coloque o arquivo de imagem dentro da pasta assets/images/.
+// 2. Crie uma nova chave aqui, como hail: 'assets/images/granizo.png'.
+// 3. Use essa chave dentro de getIcon() ou getForecastIcon().
+// 4. Se precisar, crie uma nova regra usando o codigo da API.
 const ICONES_CLIMA = {
-  thunder: '\u26C8\uFE0F',
-  drizzle: '\uD83C\uDF26\uFE0F',
-  rain: '\uD83C\uDF27\uFE0F',
-  snow: '\u2744\uFE0F',
-  fog: '\uD83C\uDF2B\uFE0F',
-  sun: '\u2600\uFE0F',
-  moon: '\uD83C\uDF19',
-  partlyCloudyDay: '\uD83C\uDF24\uFE0F',
-  partlyCloudyNight: '\uD83C\uDF19\u2601\uFE0F',
-  cloud: '\u2601\uFE0F',
-  thermometer: '\uD83C\uDF21\uFE0F'
+  thunder: 'assets/images/tempestade.png',
+  drizzle: 'assets/images/chuva.png',
+  rain: 'assets/images/chuva-forte.png',
+  snow: 'assets/images/neve.png',
+  fog: 'assets/images/nevoa.png',
+  sun: 'assets/images/ceu-limpo1.png',
+  moon: 'assets/images/ceu-limpo2.png',
+  partlyCloudyDay: 'assets/images/parcialmente-nublado-sol.png',
+  partlyCloudyNight: 'assets/images/parcialmente-nublado-lua.png',
+  cloud: 'assets/images/nublado.png',
+  thermometer: 'assets/images/nublado.png', // usado como imagem padrao/de seguranca
 };
 
+// Diz se, na hora atual, ja esta de noite na cidade pesquisada.
+// agora/nascerDoSol/porDoSol chegam da API como timestamps (numeros), entao
+// basta comparar os numeros: se "agora" for menor que o nascer do sol, ou
+// maior/igual ao por do sol, entao e noite.
 function estaDeNoite(agora, nascerDoSol, porDoSol) {
   return agora < nascerDoSol || agora >= porDoSol;
 }
 
-// Mapeia o codigo de clima da OpenWeather para um emoji.
+// Recebe o codigo de clima da OpenWeather e devolve o CAMINHO da imagem certa.
 // id: codigo do clima. Ex: 800 = ceu limpo, 500-599 = chuva.
-// agora/nascerDoSol/porDoSol: timestamps em segundos. Comparar esses
-// timestamps permite saber se ja e noite na cidade pesquisada.
+// agora/nascerDoSol/porDoSol: timestamps em segundos, usados so para saber se e dia ou noite.
+// IMPORTANTE: esta funcao nao mostra a imagem na tela, ela so retorna o caminho
+// (uma string de texto, tipo "assets/images/chuva.png"). Quem mostra na tela
+// e o codigo em renderizarClimaAtual(), que coloca esse caminho num <img src="...">.
 function getIcon(id, agora, nascerDoSol, porDoSol) {
   const noite = estaDeNoite(agora, nascerDoSol, porDoSol);
 
@@ -48,8 +57,9 @@ function getIcon(id, agora, nascerDoSol, porDoSol) {
   return ICONES_CLIMA.thermometer;
 }
 
-// Open-Meteo usa outros codigos de clima. Esta funcao traduz esses codigos
-// para os mesmos emojis do app, inclusive respeitando dia/noite na previsao.
+// Open-Meteo (usado na previsao) tem codigos de clima diferentes da OpenWeather.
+// Esta funcao traduz esses outros codigos para os MESMOS caminhos de imagem do app,
+// respeitando se e dia ou noite (isDay vem da API: 1 = dia, 0 = noite).
 function getForecastIcon(weatherCode, isDay) {
   const dia = isDay === 1;
 
@@ -65,6 +75,8 @@ function getForecastIcon(weatherCode, isDay) {
   return ICONES_CLIMA.thermometer;
 }
 
+// Transforma um timestamp (numero) em horario legivel, tipo "14:30",
+// respeitando o fuso horario (timezoneOffset) da cidade pesquisada.
 function formatarHora(timestamp, timezoneOffset) {
   const horarioNaCidade = new Date((timestamp + timezoneOffset) * 1000);
 
@@ -75,10 +87,12 @@ function formatarHora(timestamp, timezoneOffset) {
   });
 }
 
+// Deixa a primeira letra de um texto em maiusculo. Ex: "segunda-feira" -> "Segunda-feira".
 function capitalizarPrimeiraLetra(texto) {
   return texto.charAt(0).toUpperCase() + texto.slice(1);
 }
 
+// Monta a data atual da cidade pesquisada por extenso, tipo "22 de junho, Segunda-feira".
 function formatarDataLocal(timezoneOffset) {
   const dataNaCidade = new Date(Date.now() + timezoneOffset * 1000);
   const opcoesDeData = { timeZone: 'UTC' };
@@ -99,6 +113,8 @@ function formatarDataLocal(timezoneOffset) {
   return `${dia} de ${mes}, ${capitalizarPrimeiraLetra(diaDaSemana)}`;
 }
 
+// Formata um horario da previsao (que vem como texto tipo "2026-06-22T14:00")
+// para algo legivel, tipo "Segunda-feira, 14:00".
 function formatarHorarioForecast(isoLocal) {
   const [data, hora] = isoLocal.split('T');
   const [, mes, dia] = data.split('-');
@@ -111,6 +127,8 @@ function formatarHorarioForecast(isoLocal) {
   return `${capitalizarPrimeiraLetra(diaSemana)}, ${hora.slice(0, 5)}`;
 }
 
+// Formata uma data da previsao semanal (tipo "2026-06-23") para uma versao curta,
+// tipo "Ter" (terca-feira abreviado).
 function formatarDiaForecast(isoLocal) {
   const dataSemFuso = new Date(`${isoLocal}T12:00:00Z`);
   const diaSemana = dataSemFuso.toLocaleDateString('pt-BR', {
@@ -121,11 +139,16 @@ function formatarDiaForecast(isoLocal) {
   return capitalizarPrimeiraLetra(diaSemana.replace('.', ''));
 }
 
+// Descobre qual e a "hora local atual" da cidade pesquisada, no formato que a
+// API de previsao usa (ex: "2026-06-22T14:00"). Serve para saber a partir de
+// qual hora devemos comecar a mostrar a previsao horaria.
 function getHoraLocalAtualISO(timezoneOffset) {
   const dataLocal = new Date(Date.now() + timezoneOffset * 1000);
   return `${dataLocal.toISOString().slice(0, 13)}:00`;
 }
 
+// Mostra uma mensagem de erro na tela (ex: "Cidade nao encontrada") e
+// esconde o aviso de "carregando".
 function mostrarErro(msg) {
   $('loading').classList.remove('visible');
   const el = $('error');
@@ -133,6 +156,8 @@ function mostrarErro(msg) {
   el.classList.add('visible');
 }
 
+// Limpa a tela antes de uma nova busca: esconde resultados antigos e
+// mensagens de erro, para nao misturar com a busca nova.
 function esconderResultados() {
   $('wth-grid').classList.remove('visible');
   $('card').classList.remove('visible');
@@ -144,6 +169,8 @@ function esconderResultados() {
   $('weekly-forecast-list').innerHTML = '';
 }
 
+// Pega os dados do clima atual (que vieram da API) e preenche cada
+// elemento da tela (nome da cidade, temperatura, icone, umidade, etc.).
 function renderizarClimaAtual(data, unidade) {
   const tempUnidade = unidade === 'imperial' ? '\u00B0F' : '\u00B0C';
   const ventoUnidade = unidade === 'imperial' ? 'mph' : 'km/h';
@@ -153,12 +180,20 @@ function renderizarClimaAtual(data, unidade) {
 
   $('city').textContent = `${data.name}, ${data.sys.country}`;
   $('temp').textContent = `${Math.round(data.main.temp)}${tempUnidade}`;
-  $('icon').textContent = getIcon(
+
+  // getIcon() devolve um CAMINHO de imagem (texto), tipo "assets/images/chuva.png".
+  // Como #icon agora e uma tag <img> (veja o HTML), usamos ".src" para dizer
+  // ao navegador qual arquivo de imagem carregar, e ".alt" como texto alternativo
+  // (importante para acessibilidade e para quando a imagem nao carrega).
+  const caminhoIcone = getIcon(
     data.weather[0].id,
     data.dt,
     data.sys.sunrise,
     data.sys.sunset
   );
+  $('icon').src = caminhoIcone;
+  $('icon').alt = data.weather[0].description;
+
   $('desc').textContent = data.weather[0].description;
   $('feels').textContent = `${Math.round(data.main.feels_like)}${tempUnidade}`;
   $('humidity').textContent = `${data.main.humidity}%`;
@@ -176,6 +211,8 @@ function renderizarClimaAtual(data, unidade) {
   $('wth-grid').classList.add('visible');
 }
 
+// Busca a previsao do tempo (proximos dias/horas) na API Open-Meteo,
+// usando a latitude/longitude da cidade que ja veio da busca anterior.
 async function buscarPrevisao({ latitude, longitude, timezoneOffset, unidade }) {
   const temperatura = unidade === 'imperial' ? 'fahrenheit' : 'celsius';
   const url = new URL('https://api.open-meteo.com/v1/forecast');
@@ -199,6 +236,8 @@ async function buscarPrevisao({ latitude, longitude, timezoneOffset, unidade }) 
   return resposta.json();
 }
 
+// Monta a lista de previsao das proximas ~23 horas e coloca na tela.
+// Para cada hora, cria um <li> com horario, icone (agora uma <img>), temperatura e chance de chuva.
 function renderizarPrevisaoHoraria(previsao, timezoneOffset, unidade) {
   const lista = $('hourly-forecast-list');
   const tempUnidade = unidade === 'imperial' ? '\u00B0F' : '\u00B0C';
@@ -217,10 +256,12 @@ function renderizarPrevisaoHoraria(previsao, timezoneOffset, unidade) {
     const codigo = previsao.hourly.weather_code[posicao];
     const isDay = previsao.hourly.is_day[posicao];
 
+    // getForecastIcon() devolve um caminho de imagem (texto). Por isso usamos
+    // uma tag <img src="..."> aqui dentro do template, em vez de uma <div> vazia.
     return `
       <li class="forecast-hour">
         <div class="forecast-time">${formatarHorarioForecast(hora)}</div>
-        <div class="forecast-icon" aria-hidden="true">${getForecastIcon(codigo, isDay)}</div>
+        <img class="forecast-icon" src="${getForecastIcon(codigo, isDay)}" alt="Condi\u00e7\u00e3o do tempo" />
         <div class="forecast-temp">${temp}${tempUnidade}</div>
         <div class="forecast-rain">${chuva}% chuva</div>
       </li>
@@ -230,6 +271,8 @@ function renderizarPrevisaoHoraria(previsao, timezoneOffset, unidade) {
   $('hourly-forecast-section').classList.add('visible');
 }
 
+// Monta a lista de previsao dos proximos dias e coloca na tela.
+// Para cada dia, cria um <li> com o nome do dia, icone (agora uma <img>) e temperaturas min/max.
 function renderizarPrevisaoSemanal(previsao, unidade) {
   const lista = $('weekly-forecast-list');
   const tempUnidade = unidade === 'imperial' ? '\u00B0F' : '\u00B0C';
@@ -242,7 +285,7 @@ function renderizarPrevisaoSemanal(previsao, unidade) {
     return `
       <li class="forecast-day">
         <section class="forecast-date">${formatarDiaForecast(dia)}</section>
-        <div class="forecast-icon" aria-hidden="true">${getForecastIcon(codigo, 1)}</div>
+        <img class="forecast-icon" src="${getForecastIcon(codigo, 1)}" alt="Condi\u00e7\u00e3o do tempo" />
         <div class="forecast-temp">${maxima}${tempUnidade}/${minima}${tempUnidade}</div>
       </li>
     `;
@@ -251,6 +294,10 @@ function renderizarPrevisaoSemanal(previsao, unidade) {
   $('weekly-forecast-card').classList.add('visible');
 }
 
+// Funcao principal: roda quando o usuario clica em "Buscar" ou aperta Enter.
+// Ela: 1) le a cidade digitada, 2) busca o clima atual na OpenWeather,
+// 3) mostra esses dados na tela, 4) busca a previsao na Open-Meteo,
+// 5) mostra a previsao na tela. Cada etapa tem tratamento de erro.
 async function buscarClima() {
   const cidade = $('input').value.trim();
   const unidade = $('units').value;
@@ -298,12 +345,17 @@ async function buscarClima() {
   }
 }
 
+// "Ouvintes de evento": dizem ao navegador o que fazer quando o usuario interage.
+// Aqui: clicar no botao "Buscar" -> roda buscarClima().
 $('buscar').addEventListener('click', buscarClima);
 
+// Apertar Enter dentro do campo de texto -> tambem roda buscarClima().
 $('input').addEventListener('keydown', e => {
   if (e.key === 'Enter') buscarClima();
 });
 
+// Trocar a unidade (Celsius/Fahrenheit) -> busca o clima de novo, se ja
+// houver uma cidade digitada, para atualizar os valores na nova unidade.
 $('units').addEventListener('change', () => {
   if ($('input').value.trim()) buscarClima();
 });
