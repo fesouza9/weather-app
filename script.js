@@ -1,6 +1,5 @@
 ﻿// Chave de API do OpenWeatherMap.
 // Observacao: em apps 100% front-end, qualquer chave colocada no JS fica visivel no navegador.
-const API_KEY = '1064fb42234e2f83329960b8888b9998';
 
 // Funcao de atalho: em vez de escrever "document.getElementById('algo')" toda hora,
 // usamos "$('algo')". Faz exatamente a mesma coisa, só economiza digitação.
@@ -17,8 +16,8 @@ const ICONES_CLIMA = {
   thunder: 'assets/images/tempestade.png',
   drizzle: 'assets/images/chuva.png',
   rain: 'assets/images/chuva-forte.png',
-  snow: 'assets/images/neve.png',
-  fog: 'assets/images/nevoa.png',
+  snow: 'assets/images/snow.png',
+  fog: 'assets/images/icon-fog.webp',
   sun: 'assets/images/ceu-limpo1.png',
   moon: 'assets/images/ceu-limpo2.png',
   partlyCloudyDay: 'assets/images/parcialmente-nublado-sol.png',
