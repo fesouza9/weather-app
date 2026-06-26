@@ -54,11 +54,13 @@ weather-app/
 
 ### Passo a passo
 
+1. Clone o repositório
 ```bash
-# 1. Clone o repositório
 git clone https://github.com/seu-usuario/weather-app.git
+```
 
-# 2. Entre na pasta do projeto
+2. Entre na pasta do projeto
+```bash
 cd weather-app
 ```
 
