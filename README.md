@@ -34,6 +34,7 @@ Aplicação web de previsão do tempo, construída com **HTML, CSS e JavaScript 
 ```
 weather-app/
 ├── assets/
+│   ├── preview1.png...  # imagens de previsão do site
 │   ├── images/        # ícones de clima (sol, chuva, nublado, etc.)
 │   └── logo/           # logo do projeto
 ├── weather-app.html     # estrutura da página
@@ -58,7 +59,7 @@ weather-app/
 git clone https://github.com/seu-usuario/weather-app.git
 
 # 2. Entre na pasta do projeto
-cd weather-now
+cd weather-app
 ```
 
 3. Crie seu arquivo de configuração local copiando o modelo:
