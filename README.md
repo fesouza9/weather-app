@@ -32,7 +32,7 @@ Aplicação web de previsão do tempo, construída com **HTML, CSS e JavaScript 
 ## 📂 Estrutura do projeto
 
 ```
-weather-now/
+weather-app/
 ├── assets/
 │   ├── images/        # ícones de clima (sol, chuva, nublado, etc.)
 │   └── logo/           # logo do projeto
@@ -55,7 +55,7 @@ weather-now/
 
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/seu-usuario/weather-now.git
+git clone https://github.com/seu-usuario/weather-app.git
 
 # 2. Entre na pasta do projeto
 cd weather-now
@@ -91,5 +91,5 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## 👤 Autor
 
-Feito por **[Seu Nome]**.
-📧 filpz092@gmail.com · 🔗 [LinkedIn](#) · 🔗 [Portfólio](#)
+Feito por **[Felipe Souza]**.
+📧 fesouza9contato@gmail.com · 🔗 [LinkedIn](#) · 🔗 [Portfólio](#)
